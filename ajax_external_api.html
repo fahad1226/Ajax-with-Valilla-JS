@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax External Api</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="container py-3">
+        <h1 class="text-muted">Github Api Users</h1>
+        <button class="btn btn-primary " id="btn">Get Data</button>
+    </div>
+       
+    
+    <div id="git" class="container">
+
+    </div>
+</body>
+
+    <script>
+    
+    document.getElementById('btn').addEventListener('click',loadText);
+
+    function loadText() {
+        xhr = new XMLHttpRequest();
+        xhr.open('GET','https://api.github.com/users',true);
+        xhr.onload = function() {
+            if(this.status == 200) {
+                let users = JSON.parse(this.responseText);
+
+                let output = '';
+
+                for(let i in users) {
+                    output += 
+                    '<div>' +
+                    '<img class="rounded-circle" src=" '+ users[i].avatar_url +' " width="70"     height="70">'+
+                    '<ul class="list-group lead mb-4">'+
+                    '<li class="list-group-item lead">ID: '+users[i].id+'</li>'+
+                    '<li  class="list-group-item lead">NAME: '+users[i].login+'</li>'+
+                    '<li  class="list-group-item lead"> TYPE: '+ users[i].type +'</li>'+
+                    '</ul>'+
+                    '</div>';
+                }
+                
+                document.getElementById('git').innerHTML = output; 
+            }
+        }
+        xhr.send();
+    }
+    
+    </script>
+
+</html>

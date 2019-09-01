@@ -1,1 +1,1 @@
-# Ajax-with-Valilla-JS
+# Ajax-with-Vanilla-Javascript
